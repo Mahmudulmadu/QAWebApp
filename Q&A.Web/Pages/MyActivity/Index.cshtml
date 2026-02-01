@@ -1,0 +1,51 @@
+﻿@page
+@model QA.Web.Pages.MyActivity.IndexModel
+@{
+    ViewData["Title"] = "My Activity";
+}
+
+<h2>My Answers</h2>
+
+@if (!Model.Answers.Any())
+{
+    <div class="alert alert-info">You haven’t posted any answers yet.</div>
+}
+else
+{
+    @foreach (var a in Model.Answers)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <p>@a.Body</p>
+
+                <small class="text-muted">
+                    On:
+                    <a href="/Questions/Details?id=@a.QuestionId">
+                        @a.QuestionTitle
+                    </a>
+                </small>
+
+                <div class="mt-2 d-flex gap-2">
+                    @if (a.IsOwner)
+                    {
+                        <button class="btn btn-sm btn-outline-secondary"
+                                onclick="showEditAnswer(@a.Id, `@a.Body`)">
+                            Edit
+                        </button>
+
+                        <button class="btn btn-sm btn-outline-danger"
+                                onclick="deleteAnswer(@a.Id)">
+                            Delete
+                        </button>
+                    }
+
+                    @if (a.IsAccepted)
+                    {
+                        <span class="badge bg-success">Accepted</span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+}

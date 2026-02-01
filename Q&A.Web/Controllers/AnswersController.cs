@@ -109,4 +109,14 @@ public class AnswersController : ControllerBase
 
         return Ok(new { message = result.Message });
     }
+    [HttpGet("my")]
+    public async Task<IActionResult> GetMyAnswers()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userIdClaim)) return Unauthorized();
+
+        int userId = int.Parse(userIdClaim);
+        var answers = await _answerService.GetMyAnswersAsync(userId);
+        return Ok(answers);
+    }
 }

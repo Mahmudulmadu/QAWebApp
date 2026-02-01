@@ -11,4 +11,6 @@ public interface IAnswerService
     Task<(bool Success, string Message)> AcceptAnswerAsync(int answerId, int userId);
     Task<Answer?> GetAnswerByIdAsync(int answerId);
     Task<List<Answer>> GetAnswersByQuestionIdAsync(int questionId);
+    Task<List<MyAnswerDto>> GetMyAnswersAsync(int userId);
+    //Task<List<Answer>> GetByUserIdWithQuestionAsync(int userId);
 }

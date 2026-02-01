@@ -32,6 +32,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/Tags">Tags</a>
                         </li>
+                        <li class="nav-item d-none" id="myActivityNav">
+                            <a class="nav-link" href="/Answer/MyAnswers">My Activity</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav" id="authNav">
                         <li class="nav-item d-none" id="askQuestionNav">
@@ -99,6 +102,7 @@
                 document.getElementById('userNav').classList.remove('d-none');
                 document.getElementById('logoutNav').classList.remove('d-none');
                 document.getElementById('askQuestionNav').classList.remove('d-none');
+                document.getElementById('myActivityNav').classList.remove('d-none');
                 document.getElementById('usernameDisplay').textContent = username || 'User';
             } else {
                 document.getElementById('loginNav').classList.remove('d-none');
@@ -106,6 +110,7 @@
                 document.getElementById('userNav').classList.add('d-none');
                 document.getElementById('logoutNav').classList.add('d-none');
                 document.getElementById('askQuestionNav').classList.add('d-none');
+                document.getElementById('myActivityNav').classList.add('d-none');
             }
         }
 

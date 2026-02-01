@@ -18,6 +18,15 @@ public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
             .ThenByDescending(a => a.VoteCount)
             .ToListAsync();
     }
+    public async Task<List<Answer>> GetByUserIdWithQuestionAsync(int userId)
+    {
+        return await _context.Answers
+            .Include(a => a.Question)   // include question to avoid null
+            .Where(a => a.UserId == userId)
+            .OrderByDescending(a => a.CreatedAt)
+            .ToListAsync();
+    }
+
 
     public async Task<Answer?> GetWithQuestionAsync(int answerId)
     {

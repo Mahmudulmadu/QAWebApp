@@ -1,8 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Q_A.Application.Interfaces;
 using QA.Application.DTOs;
 using QA.Application.Interfaces.Services;
 using QA.Domain.Models;
-using Q_A.Application.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace QA.Application.Services;
 
@@ -15,6 +16,22 @@ public class AnswerService : IAnswerService
     {
         _unitOfWork = unitOfWork;
         _logger = logger;
+    }
+    public async Task<List<MyAnswerDto>> GetMyAnswersAsync(int userId)
+    {
+        var answers = await _unitOfWork.Answers.GetByUserIdWithQuestionAsync(userId);
+
+        return answers.Select(a => new MyAnswerDto
+        {
+            Id = a.Id,
+            Body = a.Body,
+            QuestionId = a.QuestionId,
+            QuestionTitle = a.Question?.Title ?? "Question deleted", // guard
+            IsAccepted = a.IsAccepted,
+            VoteCount = a.VoteCount,
+            IsOwner = a.UserId == userId
+        }).ToList();
+
     }
 
     public async Task<(bool Success, string Message, Answer? Answer)> CreateAnswerAsync(AnswerCreateDto dto, int userId)
@@ -96,4 +113,6 @@ public class AnswerService : IAnswerService
 
     public async Task<List<Answer>> GetAnswersByQuestionIdAsync(int questionId)
         => await _unitOfWork.Answers.GetByQuestionIdAsync(questionId);
+   
+
 }

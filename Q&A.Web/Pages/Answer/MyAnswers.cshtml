@@ -1,0 +1,62 @@
+﻿@page
+@model QA.Web.Pages.Answer.MyAnswersModel
+@{
+    ViewData["Title"] = "My Answers";
+}
+
+<h2>My Answers</h2>
+
+@foreach (var a in Model.Answers)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <p>@a.Body</p>
+
+            <small class="text-muted">
+                On:
+                <a href="/Questions/Details?id=@a.QuestionId">
+                    @a.QuestionTitle
+                </a>
+            </small>
+
+            <div class="mt-2">
+                <button class="btn btn-sm btn-outline-secondary"
+                        onclick="showEditAnswer(@a.Id, `@a.Body`)">
+                    Edit
+                </button>
+
+                <button class="btn btn-sm btn-outline-danger"
+                        onclick="deleteAnswer(@a.Id)">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="editAnswerModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Edit Answer</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <textarea id="editAnswerBody"
+                          class="form-control"
+                          rows="8"
+                          minlength="20"
+                          maxlength="5000"></textarea>
+                <input type="hidden" id="editAnswerId" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" onclick="saveAnswerEdit()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

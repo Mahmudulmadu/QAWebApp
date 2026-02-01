@@ -11,4 +11,5 @@ public interface IAnswerRepository : IGenericRepository<Answer>
 {
     Task<List<Answer>> GetByQuestionIdAsync(int questionId);
     Task<Answer?> GetWithQuestionAsync(int answerId);
+    Task<List<Answer>> GetByUserIdWithQuestionAsync(int userId);
 }

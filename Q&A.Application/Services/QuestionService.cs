@@ -82,19 +82,26 @@ public class QuestionService : IQuestionService
 
     public async Task<List<Question>> GetAllQuestionsAsync(string? search, string? tag)
     {
-        var query = _uow.Questions.Query()
+        IQueryable<Question> query = _uow.Questions.Query()
             .Include(q => q.User)
             .Include(q => q.Tags)
             .Include(q => q.Answers);
 
         if (!string.IsNullOrWhiteSpace(search))
-            query = (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Question, ICollection<Answer>>)query.Where(q => q.Title.Contains(search));
+        {
+            query = query.Where(q => q.Title.Contains(search));
+        }
 
         if (!string.IsNullOrWhiteSpace(tag))
-            query = (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Question, ICollection<Answer>>)query.Where(q => q.Tags.Any(t => t.Name == tag));
+        {
+            query = query.Where(q => q.Tags.Any(t => t.Name == tag));
+        }
 
-        return await query.OrderByDescending(q => q.CreatedAt).ToListAsync();
+        return await query
+            .OrderByDescending(q => q.CreatedAt)
+            .ToListAsync();
     }
+
 
     public async Task<List<Question>> GetLatestQuestionsAsync(int count)
         => await _uow.Questions.GetLatestAsync(count);
