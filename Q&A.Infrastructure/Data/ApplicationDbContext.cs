@@ -54,6 +54,8 @@ public class ApplicationDbContext : DbContext
                 .WithOne(v => v.Question)
                 .HasForeignKey(v => v.QuestionId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+
         });
 
         // Answer configurations
@@ -67,13 +69,14 @@ public class ApplicationDbContext : DbContext
             entity.HasMany(a => a.Comments)
                 .WithOne(c => c.Answer)
                 .HasForeignKey(c => c.AnswerId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasMany(a => a.Votes)
                 .WithOne(v => v.Answer)
                 .HasForeignKey(v => v.AnswerId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
         });
+
 
         // Comment configurations
         modelBuilder.Entity<Comment>(entity =>

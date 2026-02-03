@@ -11,17 +11,28 @@ public class QuestionRepository : GenericRepository<Question>, IQuestionReposito
 
     public IQueryable<Question> Query() => _context.Questions.AsQueryable();
 
-    public async Task<Question?> GetWithDetailsAsync(int id)
-    {
-        return await _context.Questions
-            .Include(q => q.User)
-            .Include(q => q.Tags)
-            .Include(q => q.Answers)
-                .ThenInclude(a => a.User)
-            .Include(q => q.Comments)
+   public async Task<Question?> GetWithDetailsAsync(int id)
+{
+    return await _context.Questions
+        .Include(q => q.User)
+        .Include(q => q.Tags)
+
+        // Question comments
+        .Include(q => q.Comments)
+            .ThenInclude(c => c.User)
+
+        // Answers
+        .Include(q => q.Answers)
+            .ThenInclude(a => a.User)
+
+        // 🔥 ANSWER COMMENTS (THIS WAS MISSING)
+        .Include(q => q.Answers)
+            .ThenInclude(a => a.Comments)
                 .ThenInclude(c => c.User)
-            .FirstOrDefaultAsync(q => q.Id == id);
-    }
+
+        .FirstOrDefaultAsync(q => q.Id == id);
+}
+
 
     public async Task<List<Question>> GetLatestAsync(int count)
     {
