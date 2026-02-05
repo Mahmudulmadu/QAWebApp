@@ -55,8 +55,8 @@ public class QuestionService : IQuestionService
         question.UpdatedAt = DateTime.UtcNow;
 
         question.Tags.Clear();
-        var tags = await _tagService.GetOrCreateTagsAsync(dto.Tags);
-        foreach (var tag in tags) question.Tags.Add(tag);
+        
+  
 
         _uow.Questions.Update(question);
         await _uow.SaveChangesAsync();

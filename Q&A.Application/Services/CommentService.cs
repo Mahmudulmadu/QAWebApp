@@ -1,8 +1,9 @@
+using Microsoft.Extensions.Logging;
+using Q_A.Application.DTOs;
+using Q_A.Application.Interfaces;
 using QA.Application.DTOs;
 using QA.Application.Interfaces.Services;
 using QA.Domain.Models;
-using Q_A.Application.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace QA.Application.Services;
 
@@ -39,6 +40,34 @@ public class CommentService : ICommentService
 
         return (true, "Comment posted successfully", comment);
     }
+
+    public async Task<(bool Success, string Message)> UpdateCommentAsync(
+    int commentId, CommentUpdateDto dto, int userId)
+    {
+        var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
+        if (comment == null) return (false, "Not found");
+        if (comment.UserId != userId) return (false, "Unauthorized");
+
+        comment.Body = dto.Body;
+        _unitOfWork.Comments.Update(comment);
+        await _unitOfWork.SaveChangesAsync();
+
+        return (true, "Updated");
+    }
+
+    public async Task<(bool Success, string Message)> DeleteCommentAsync(
+        int commentId, int userId)
+    {
+        var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
+        if (comment == null) return (false, "Not found");
+        if (comment.UserId != userId) return (false, "Unauthorized");
+
+        _unitOfWork.Comments.Remove(comment);
+        await _unitOfWork.SaveChangesAsync();
+
+        return (true, "Deleted");
+    }
+
 
     public async Task<List<Comment>> GetCommentsByQuestionIdAsync(int questionId)
         => await _unitOfWork.Comments.GetByQuestionIdAsync(questionId);

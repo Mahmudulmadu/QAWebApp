@@ -26,6 +26,4 @@ public class QuestionUpdateDto
     [StringLength(5000, MinimumLength = 20)]
     public string Body { get; set; } = string.Empty;
 
-    [Required]
-    public string Tags { get; set; } = string.Empty;
 }

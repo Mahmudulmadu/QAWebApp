@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QA.Application.DTOs;
 using QA.Application.Interfaces.Services;
@@ -77,18 +77,16 @@ public class QuestionsController : ControllerBase
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userIdClaim))
-        {
             return Unauthorized();
-        }
 
         var userId = int.Parse(userIdClaim);
         var result = await _questionService.DeleteQuestionAsync(id, userId);
 
-        if (!result.Success)
-        {
-            return BadRequest(new { message = result.Message });
-        }
+        if (!result.Item1) // ✅ Use Item1
+            return BadRequest(new { message = result.Item2 });
 
-        return Ok(new { message = result.Message });
+
+        return Ok();
     }
+
 }

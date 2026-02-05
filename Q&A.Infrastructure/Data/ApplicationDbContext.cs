@@ -46,14 +46,15 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasMany(q => q.Comments)
-                .WithOne(c => c.Question)
-                .HasForeignKey(c => c.QuestionId)
-                .OnDelete(DeleteBehavior.NoAction);
+         .WithOne(c => c.Question)
+         .HasForeignKey(c => c.QuestionId)
+         .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasMany(q => q.Votes)
                 .WithOne(v => v.Question)
                 .HasForeignKey(v => v.QuestionId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
+
 
 
         });

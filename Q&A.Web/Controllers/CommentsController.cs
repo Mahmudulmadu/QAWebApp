@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Q_A.Application.DTOs;
 using QA.Application.DTOs;
 using QA.Application.Interfaces.Services;
 using System.Security.Claims;
@@ -43,5 +44,29 @@ public class CommentsController : ControllerBase
         }
 
         return Ok(new { message = result.Message, commentId = result.Comment!.Id });
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, CommentUpdateDto dto)
+    {
+        int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        var (success, _) =
+            await _commentService.UpdateCommentAsync(id, dto, userId);
+
+        if (!success) return Forbid();
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        var (success, _) =
+            await _commentService.DeleteCommentAsync(id, userId);
+
+        if (!success) return Forbid();
+        return Ok();
     }
 }

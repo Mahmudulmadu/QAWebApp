@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QA.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using QA.Infrastructure.Data;
 namespace Q_A.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260205111432_FixQuestionDelete")]
+    partial class FixQuestionDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +68,7 @@ namespace Q_A.Infrastructure.Migrations
                         {
                             Id = 1,
                             Body = "To implement JWT authentication in ASP.NET Core, you need to:\n\n1. Install Microsoft.AspNetCore.Authentication.JwtBearer NuGet package\n2. Configure JWT settings in appsettings.json\n3. Add authentication middleware in Program.cs\n4. Create a service to generate JWT tokens\n5. Protect your endpoints with [Authorize] attribute\n\nMake sure to use a strong secret key and configure token expiration appropriately.",
-                            CreatedAt = new DateTime(2026, 2, 4, 11, 30, 28, 952, DateTimeKind.Utc).AddTicks(6131),
+                            CreatedAt = new DateTime(2026, 2, 4, 11, 14, 32, 306, DateTimeKind.Utc).AddTicks(8248),
                             IsAccepted = true,
                             QuestionId = 1,
                             UserId = 1,
@@ -115,9 +118,9 @@ namespace Q_A.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 952, DateTimeKind.Utc).AddTicks(5642),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 306, DateTimeKind.Utc).AddTicks(7634),
                             Email = "demo@example.com",
-                            PasswordHash = "$2a$11$Li2zRat9UxF02PaJqnL/CuhqPvI1gZg8lAi1HOqURvL16v4yCZUxe",
+                            PasswordHash = "$2a$11$0D3cY776GcDJlRDAHfDFHuTiEVAsipTAyPG0GkaCafJ./R70GtLCK",
                             Reputation = 100,
                             Username = "demo"
                         });
@@ -202,7 +205,7 @@ namespace Q_A.Infrastructure.Migrations
                         {
                             Id = 1,
                             Body = "I'm trying to implement JWT-based authentication in my ASP.NET Core application. What are the best practices and how do I configure it properly?",
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 30, 28, 952, DateTimeKind.Utc).AddTicks(6001),
+                            CreatedAt = new DateTime(2026, 2, 3, 11, 14, 32, 306, DateTimeKind.Utc).AddTicks(8162),
                             Title = "How to implement JWT authentication in ASP.NET Core?",
                             UserId = 1,
                             ViewCount = 42,
@@ -234,49 +237,49 @@ namespace Q_A.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 796, DateTimeKind.Utc).AddTicks(9001),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 191, DateTimeKind.Utc).AddTicks(8716),
                             Name = "csharp"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 796, DateTimeKind.Utc).AddTicks(9002),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 191, DateTimeKind.Utc).AddTicks(8717),
                             Name = "aspnet"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 796, DateTimeKind.Utc).AddTicks(9003),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 191, DateTimeKind.Utc).AddTicks(8718),
                             Name = "sql"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 796, DateTimeKind.Utc).AddTicks(9004),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 191, DateTimeKind.Utc).AddTicks(8719),
                             Name = "ef-core"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 796, DateTimeKind.Utc).AddTicks(9005),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 191, DateTimeKind.Utc).AddTicks(8720),
                             Name = "jwt"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 796, DateTimeKind.Utc).AddTicks(9006),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 191, DateTimeKind.Utc).AddTicks(8721),
                             Name = "javascript"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 796, DateTimeKind.Utc).AddTicks(9007),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 191, DateTimeKind.Utc).AddTicks(8722),
                             Name = "html"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2026, 2, 5, 11, 30, 28, 796, DateTimeKind.Utc).AddTicks(9007),
+                            CreatedAt = new DateTime(2026, 2, 5, 11, 14, 32, 191, DateTimeKind.Utc).AddTicks(8723),
                             Name = "css"
                         });
                 });
